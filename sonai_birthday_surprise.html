@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Sonai ❤️</title>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;
+    background:linear-gradient(135deg,#160b20,#3a123f,#170d2d);
+    color:#fff; overflow:hidden; text-align:center;
+  }
+  .card{
+    width:min(92%,430px); padding:32px 24px; border-radius:28px;
+    background:rgba(255,255,255,.09); backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.15); box-shadow:0 20px 70px #0008;
+  }
+  .heart{font-size:58px; animation:pulse 1.3s infinite}
+  h1{margin:8px 0 12px;font-size:30px}
+  p{line-height:1.7;color:#f6eafa}
+  button{
+    border:0;border-radius:999px;padding:14px 24px;font-size:16px;font-weight:700;
+    background:#ff4f9a;color:white;cursor:pointer;box-shadow:0 8px 25px #ff4f9a55;
+  }
+  .hidden{display:none}
+  .msg{font-size:20px;min-height:150px;display:flex;align-items:center;justify-content:center}
+  .small{font-size:13px;opacity:.7;margin-top:18px}
+  .pop{animation:pop .55s ease}
+  @keyframes pulse{50%{transform:scale(1.12)}}
+  @keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+  .confetti{position:fixed;top:-20px;font-size:20px;animation:fall 4s linear forwards;pointer-events:none}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="start">
+    <div class="heart">❤️</div>
+    <h1>Sonai, তোমার জন্য একটা জিনিস আছে...</h1>
+    <p>একটু ধৈর্য ধরো 😭😂<br>বাটনে চাপ দাও, তারপর দেখো কী আছে।</p>
+    <button onclick="start()">Open My Surprise 💌</button>
+  </div>
+
+  <div id="surprise" class="hidden">
+    <div class="heart">🎂</div>
+    <h1>Happy Birthday Sonai ❤️</h1>
+    <div id="message" class="msg"></div>
+    <button id="next" onclick="nextMessage()">Next ❤️</button>
+    <div class="small">একটা কথা শেষ পর্যন্ত পড়িস কিন্তু 😌</div>
+  </div>
+</div>
+
+<script>
+const messages = [
+  "প্রথমে একটা কথা—শুভ জন্মদিন পাগলি ❤️😭",
+  "কি লিখবো বুঝতেছি না, কারণ আমি এসব সুন্দর সুন্দর কথা বলতে পারি না 😂",
+  "তুই আমার জীবনের সবচেয়ে সুন্দর ঝামেলা—রাগ করাস, জ্বালাস, আবার তোকে ছাড়া থাকতেও পারি না 😭❤️",
+  "সত্যি বলতে, তুই থাকলে ছোট ছোট জিনিসও অনেক বেশি ভালো লাগে।",
+  "তোর সাথে যতই ঝগড়া হোক, দিন শেষে তোকে আবার নিজেই খুঁজবো—এটা নিশ্চিত 😂",
+  "আজকে শুধু একটা জিনিস চাই—তুই সবসময় হাসিখুশি থাকিস আর আমার সাথে এভাবেই থাকিস। ❤️",
+  "আর হ্যাঁ, birthday বলে আজকে বেশি ভাব নিস না কিন্তু 😭😂",
+  "শেষে শুধু এটুকুই বলি—অনেক ভালোবাসি তোকে, Sonai। ❤️",
+  "Happy Birthday, আমার বউ। 🥹❤️🎂"
+];
+
+let i=0;
+function start(){
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("surprise").classList.remove("hidden");
+  nextMessage();
+  confetti();
+}
+function nextMessage(){
+  const box=document.getElementById("message");
+  box.classList.remove("pop"); void box.offsetWidth; box.classList.add("pop");
+  box.textContent=messages[i];
+  i++;
+  if(i>=messages.length){
+    document.getElementById("next").textContent="আবার শুরু করি ❤️";
+    document.getElementById("next").onclick=()=>location.reload();
+  }
+}
+function confetti(){
+  const chars=["❤️","💖","💕","✨","🎉","🎂"];
+  for(let j=0;j<35;j++){
+    const s=document.createElement("span"); s.className="confetti";
+    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    s.style.left=Math.random()*100+"vw";
+    s.style.animationDelay=Math.random()*2+"s";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),6000);
+  }
+}
+</script>
+</body>
+</html>
